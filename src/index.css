@@ -20,7 +20,7 @@ code {
 }
 
 .camera-card {
-  @apply w-full max-w-2xl bg-white rounded-xl shadow-2xl overflow-hidden;
+  @apply w-full max-w-2xl bg-white rounded-xl shadow-2xl overflow-hidden relative; /* Added relative positioning */
 }
 
 .card-header {
@@ -32,7 +32,7 @@ code {
 }
 
 .camera-content {
-  @apply p-6 flex flex-col items-center space-y-6 relative; /* Added relative positioning */
+  @apply p-6 flex flex-col items-center space-y-6 relative;
 }
 
 .webcam-container {
@@ -59,10 +59,6 @@ code {
   @apply w-full h-96 object-cover rounded-lg shadow-md transition-transform duration-300;
 }
 
-.image-overlay {
-  @apply absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 bg-black bg-opacity-40;
-}
-
 .flip-camera-button {
-  @apply absolute top-4 right-4 p-3 bg-white rounded-full shadow-lg border-2 border-blue-600 hover:bg-gray-100 transition-colors duration-300 flex items-center justify-center;
+  @apply absolute top-4 right-4 p-3 bg-white rounded-full shadow-lg border-2 border-blue-600 hover:bg-gray-100 transition-colors duration-300 flex items-center justify-center z-10; /* Added z-10 for stacking context */
 }

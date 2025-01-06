@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { Camera, RefreshCw, RotateCcw } from "lucide-react"; // Ensure you install lucide-react
+import { RotateCcw } from "lucide-react"; // Ensure you have this icon installed
 import Webcam from "react-webcam";
 
 const CameraAccess = () => {
@@ -32,7 +32,8 @@ const CameraAccess = () => {
         <div className="card-header">
           <h1 className="header-title">AR Experience</h1>
         </div>
-       
+        
+        {/* Move the Flip Camera Button to inside the card */}
         <button
           onClick={flipCamera}
           className="flip-camera-button"
@@ -40,6 +41,7 @@ const CameraAccess = () => {
         >
           <RotateCcw className="w-6 h-6 text-blue-600" />
         </button>
+        
         <div className="camera-content">
           <div className="webcam-container">
             {capturedImage ? (
