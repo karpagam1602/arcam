@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/arcam/static/css/main.e6c13ad2.css",
-    "main.js": "/arcam/static/js/main.18c33e41.js",
+    "main.css": "/arcam/static/css/main.c33b9d48.css",
+    "main.js": "/arcam/static/js/main.30170f41.js",
     "static/js/488.086ce08e.chunk.js": "/arcam/static/js/488.086ce08e.chunk.js",
     "index.html": "/arcam/index.html",
-    "main.e6c13ad2.css.map": "/arcam/static/css/main.e6c13ad2.css.map",
-    "main.18c33e41.js.map": "/arcam/static/js/main.18c33e41.js.map",
+    "main.c33b9d48.css.map": "/arcam/static/css/main.c33b9d48.css.map",
+    "main.30170f41.js.map": "/arcam/static/js/main.30170f41.js.map",
     "488.086ce08e.chunk.js.map": "/arcam/static/js/488.086ce08e.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.e6c13ad2.css",
-    "static/js/main.18c33e41.js"
+    "static/css/main.c33b9d48.css",
+    "static/js/main.30170f41.js"
   ]
 }
