@@ -19,12 +19,10 @@ code {
   @apply min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 p-8;
 }
 
-.camera-card {
-  @apply w-full max-w-2xl bg-white rounded-xl shadow-2xl overflow-hidden relative; /* Added relative positioning */
-}
+
 
 .card-header {
-  @apply bg-gradient-to-r from-blue-600 to-indigo-600 p-6 text-center;
+  @apply bg-gradient-to-r from-blue-600 to-indigo-600 p-6 text-left;
 }
 
 .header-title {
@@ -58,7 +56,12 @@ code {
 .captured-image {
   @apply w-full h-96 object-cover rounded-lg shadow-md transition-transform duration-300;
 }
+.camera-card {
+  @apply w-full max-w-2xl bg-white rounded-xl shadow-2xl overflow-hidden relative; /* Keep the relative positioning here */
+  z-index: 1; /* Added z-index for card */
+}
 
 .flip-camera-button {
-  @apply absolute top-4 right-4 p-3 bg-white rounded-full shadow-lg border-2 border-blue-600 hover:bg-gray-100 transition-colors duration-300 flex items-center justify-center z-10; /* Added z-10 for stacking context */
+  @apply absolute top-4 right-4 p-3 bg-white rounded-full shadow-lg border-2 border-blue-600 hover:bg-gray-100 transition-colors duration-300 flex items-center justify-center;
+  z-index: 20; /* Ensure it's higher than the card header */
 }
