@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { Camera, RefreshCw, RotateCcw } from "lucide-react";
+import { Camera, RefreshCw, RotateCcw } from "lucide-react"; // Ensure you install lucide-react
 import Webcam from "react-webcam";
 
 const CameraAccess = () => {
@@ -35,7 +35,7 @@ const CameraAccess = () => {
        
         <button
           onClick={flipCamera}
-          className="absolute bottom-4 right-4 p-3 bg-white rounded-full shadow-lg hover:bg-gray-100 transition-colors duration-300"
+          className="flip-camera-button"
           title="Switch Camera"
         >
           <RotateCcw className="w-6 h-6 text-blue-600" />
@@ -49,7 +49,9 @@ const CameraAccess = () => {
                   alt="Captured"
                   className="captured-image"
                 />
-               
+                <button onClick={retakePhoto} className="retake-button">
+                  Retake
+                </button>
               </div>
             ) : (
               <div className="relative">
