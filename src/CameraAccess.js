@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import Webcam from "react-webcam";
+import { IoCameraReverseOutline } from "react-icons/io5";
 
 /**
  * @author karpagam.boothanathan
@@ -12,6 +13,7 @@ const CameraAccess = () => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [modelUrl, setModelUrl] = useState(null);
   const [isModelLoaded, setIsModelLoaded] = useState(false);
+  const [facingMode, setFacingMode] = useState("environment"); // Default to rear camera
 
   useEffect(() => {
     let interval;
@@ -70,34 +72,44 @@ const CameraAccess = () => {
     }
   };
 
+  // Flip Camera Functionality
+  const flipCamera = () => {
+    setFacingMode((prevMode) => (prevMode === "user" ? "environment" : "user"));
+  };
+
+  const videoConstraints = {
+    facingMode: facingMode,
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 p-4 md:p-6 relative">
-      <div className="max-w-4xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center p-4 sm:p-6">
+      <div className="w-full max-w-lg sm:max-w-4xl">
         <div className="bg-white rounded-xl shadow-2xl overflow-hidden">
           <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-6">
             {!isModelLoaded ? (
               <>
-                <h1 className="text-2xl font-bold text-white">
+                <h1 className="text-2xl font-bold text-white text-center">
                   AR Experience 🌾🧉🎋
                 </h1>
-                <p className="text-blue-100 mt-2">
+                <p className="text-blue-100 mt-2 text-center">
                   Point your camera at the target image to load the 3D model.
                 </p>
               </>
             ) : (
-              <h1 className="text-xl font-bold text-white">
-                Enjoy AR Pongal🌾🧉 Experience! 🎊
+              <h1 className="text-xl font-bold text-white text-center">
+                Enjoy AR Pongal 🌾🧉 Experience! 🎊
               </h1>
             )}
           </div>
 
           {/* Camera or 3D Model */}
-          <div className="p-6">
+          <div className="p-4 sm:p-6">
             <div className="relative w-full aspect-video rounded-lg overflow-hidden">
               {/* Webcam */}
               <Webcam
                 ref={webcamRef}
                 screenshotFormat="image/jpeg"
+                videoConstraints={videoConstraints}
                 className="w-full h-full object-cover"
               />
               {/* 3D Model Overlay */}
@@ -119,6 +131,15 @@ const CameraAccess = () => {
                   }}
                 ></model-viewer>
               )}
+
+              {/* Flip Camera Button */}
+              <button
+                onClick={flipCamera}
+                className="absolute bottom-4 right-4 p-3 bg-white rounded-full shadow-lg hover:bg-gray-100 transition-colors duration-300"
+                title="Switch Camera"
+              >
+                <IoCameraReverseOutline />
+              </button>
             </div>
           </div>
         </div>
