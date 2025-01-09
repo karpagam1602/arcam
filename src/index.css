@@ -16,8 +16,9 @@ code {
 @tailwind utilities;
 
 .camera-container {
-  @apply min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 p-8;
+  @apply h-[120vh] bg-gradient-to-br from-blue-50 to-indigo-50 p-8;
 }
+
 
 .card-header {
   @apply bg-gradient-to-r from-blue-600 to-indigo-600 p-6 text-left w-full flex justify-between items-center; /* Adjusted */
