@@ -16,7 +16,7 @@ code {
 @tailwind utilities;
 
 .camera-container {
-  @apply h-[120vh] bg-gradient-to-br from-blue-50 to-indigo-50 p-8;
+  @apply h-[130vh] bg-gradient-to-br from-blue-50 to-indigo-50 p-8;
 }
 
 
@@ -25,7 +25,7 @@ code {
 }
 
 .header-title {
-  @apply text-2xl font-bold text-white; /* Made the font size smaller */
+  @apply text-2xl font-bold text-white; 
 }
 
 .camera-content {
