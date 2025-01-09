@@ -16,28 +16,28 @@ code {
 @tailwind utilities;
 
 .camera-container {
-  @apply h-[130vh] bg-gradient-to-br from-blue-50 to-indigo-50 p-8;
+  @apply h-[120vh] p-6; /* Decreased height */
+  background: linear-gradient(135deg, white 0%, #764ba2 100%);
 }
 
+.camera-content {
+  @apply p-4 flex flex-col items-center space-y-6 relative;
+}
 
 .card-header {
   @apply bg-gradient-to-r from-blue-600 to-indigo-600 p-6 text-left w-full flex justify-between items-center; /* Adjusted */
 }
 
 .header-title {
-  @apply text-2xl font-bold text-white; 
-}
-
-.camera-content {
-  @apply p-6 flex flex-col items-center space-y-6 relative;
+  @apply text-2xl font-bold text-white;
 }
 
 .webcam-container {
-  @apply relative w-full max-w-md mx-auto;
+  @apply relative w-full max-w-2xl mx-auto; /* Moderate width */
 }
 
 .webcam-view {
-  @apply w-full h-96 rounded-lg overflow-hidden shadow-lg;
+  @apply w-full h-[350px] rounded-lg overflow-hidden shadow-lg; /* Smaller webcam view */
 }
 
 .camera-indicator {
@@ -55,12 +55,12 @@ code {
 .captured-image {
   @apply w-full h-96 object-cover rounded-lg shadow-md transition-transform duration-300;
 }
+
 .camera-card {
-  @apply w-full max-w-2xl bg-white rounded-xl shadow-2xl overflow-hidden relative; /* Keep the relative positioning here */
-  z-index: 1; /* Added z-index for card */
+  @apply w-full max-w-2xl bg-white rounded-xl shadow-2xl overflow-hidden relative; 
 }
 
 .flip-camera-button {
   @apply absolute top-4 right-4 p-3 bg-white rounded-full shadow-lg border-2 border-blue-600 hover:bg-gray-100 transition-colors duration-300 flex items-center justify-center;
-  z-index: 20; /* Ensure it's higher than the card header */
+  z-index: 20;
 }
