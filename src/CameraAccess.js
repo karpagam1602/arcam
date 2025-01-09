@@ -2,6 +2,12 @@ import React, { useRef, useState, useEffect } from "react";
 import { RotateCcw } from "lucide-react";
 import Webcam from "react-webcam";
 
+/**
+ * @author karpagam.boothanathan
+ * @since 01-01-2025
+ *
+ */
+
 const CameraAccess = () => {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
@@ -39,9 +45,7 @@ const CameraAccess = () => {
     }
   };
 
-  const retakePhoto = () => {
-    setCapturedImage(null);
-  };
+
 
   const flipCamera = () => {
     setFacingMode((prevMode) => (prevMode === "user" ? "environment" : "user"));
@@ -54,7 +58,7 @@ const CameraAccess = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ image: imageDataUrl }),
+        body: JSON.stringify({ frame: imageDataUrl }),
       });
 
       const data = await response.json();
@@ -98,9 +102,7 @@ const CameraAccess = () => {
                   alt="Captured"
                   className="captured-image"
                 />
-                <button onClick={retakePhoto} className="retake-button">
-                  Retake
-                </button>
+               
               </div>
             ) : (
               <div className="relative">
