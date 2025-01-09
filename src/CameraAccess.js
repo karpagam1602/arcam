@@ -77,7 +77,7 @@ const CameraAccess = () => {
           <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-6">
             {!isModelLoaded ? (
               <>
-                <h1 className="text-3xl font-bold text-white">
+                <h1 className="text-xl font-bold text-white">
                   AR Experience 🌾🧉🎋
                 </h1>
                 <p className="text-blue-100 mt-2">
