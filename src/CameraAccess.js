@@ -2,7 +2,6 @@ import React, { useRef, useState, useEffect } from "react";
 import Webcam from "react-webcam";
 import { IoCameraReverseOutline } from "react-icons/io5";
 
-
 const CameraAccess = () => {
   const webcamRef = useRef(null);
   const [isProcessing, setIsProcessing] = useState(false);

@@ -14,14 +14,26 @@ code {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 .camera-container {
-  @apply h-[120vh] p-6; /* Decreased height */
+  @apply h-screen p-0; /* Full height */
   background: linear-gradient(135deg, white 0%, #764ba2 100%);
 }
 
 .camera-content {
-  @apply p-4 flex flex-col items-center space-y-6 relative;
+  @apply p-4 flex flex-col items-center space-y-6 relative h-full; /* Full height for content */
+}
+
+.webcam-container {
+  @apply relative w-full h-full; /* Full width and height */
+}
+
+.webcam-view {
+  @apply w-full h-full rounded-lg overflow-hidden shadow-lg; /* Ensure the webcam occupies full screen */
+}
+
+.flip-camera-button {
+  @apply absolute top-4 right-4 p-3 bg-white rounded-full shadow-lg border-2 border-blue-600 hover:bg-gray-100 transition-colors duration-300 flex items-center justify-center;
+  z-index: 20;
 }
 
 .card-header {
@@ -32,35 +44,18 @@ code {
   @apply text-2xl font-bold text-white;
 }
 
-.webcam-container {
-  @apply relative w-full max-w-2xl mx-auto; /* Moderate width */
-}
-
-.webcam-view {
-  @apply w-full h-[350px] rounded-lg overflow-hidden shadow-lg; /* Smaller webcam view */
-}
-
-.camera-indicator {
-  @apply absolute top-4 right-4 animate-pulse flex items-center space-x-2 bg-black bg-opacity-50 text-white text-sm px-3 py-1 rounded-full;
-}
-
-.capture-button {
-  @apply flex items-center space-x-2 px-8 py-4 bg-blue-600 text-white rounded-lg shadow-lg hover:bg-blue-700 transform hover:scale-105 transition-all duration-300;
-}
-
-.retake-button {
-  @apply flex items-center space-x-2 px-6 py-3 bg-red-500 text-white rounded-lg shadow-lg hover:bg-red-600 transition-colors duration-300;
-}
-
-.captured-image {
-  @apply w-full h-96 object-cover rounded-lg shadow-md transition-transform duration-300;
-}
-
-.camera-card {
-  @apply w-full max-w-2xl bg-white rounded-xl shadow-2xl overflow-hidden relative; 
-}
-
-.flip-camera-button {
-  @apply absolute top-4 right-4 p-3 bg-white rounded-full shadow-lg border-2 border-blue-600 hover:bg-gray-100 transition-colors duration-300 flex items-center justify-center;
-  z-index: 20;
+/* Add responsive handling for small screens */
+@media (max-width: 640px) {
+  .webcam-view {
+    @apply h-[60vh]; /* Adjusted height on mobile for better fit */
+  }
+  .camera-content {
+    @apply p-2; /* Reduced padding for smaller screens */
+  }
+  .card-header {
+    @apply p-4; /* Less padding for smaller screens */
+  }
+  .flip-camera-button {
+    @apply top-2 right-2 p-2; /* Adjusted position and size for mobile */
+  }
 }
