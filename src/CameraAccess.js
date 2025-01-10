@@ -2,46 +2,41 @@ import React, { useRef, useState, useEffect } from "react";
 import Webcam from "react-webcam";
 import { IoCameraReverseOutline } from "react-icons/io5";
 
-/**
- * @author karpagam.boothanathan
- * @since 27-12-2024
- *
- */
 
 const CameraAccess = () => {
   const webcamRef = useRef(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [modelUrl, setModelUrl] = useState(null);
   const [isModelLoaded, setIsModelLoaded] = useState(false);
-  const [facingMode, setFacingMode] = useState("environment"); // Default to rear camera
+  const [facingMode, setFacingMode] = useState("environment");
+  const [isFrameDetected, setIsFrameDetected] = useState(false);
 
   useEffect(() => {
-    let interval;
-    if (!isProcessing && !modelUrl) {
-      interval = setInterval(() => {
+    const interval = setInterval(() => {
+      if (!isProcessing) {
         processFrame();
-      }, 100);
-    }
-    return () => {
-      if (interval) {
-        clearInterval(interval);
       }
-    };
-  }, [isProcessing, modelUrl]);
+    }, 100);
+
+    return () => clearInterval(interval);
+  }, [isProcessing]);
 
   const processFrame = async () => {
-    if (webcamRef.current && !isProcessing) {
+    if (webcamRef.current) {
       const imageSrc = webcamRef.current.getScreenshot();
       setIsProcessing(true);
 
       try {
         const result = await sendFrameToBackend(imageSrc);
-        if (result.match) {
-          setModelUrl("http://localhost:3001/arcam/models/final_setup.glb");
-          setIsModelLoaded(true);
-          console.log("Object detected, loading 3D model");
+
+        if (result.detected) {
+          if (!isFrameDetected) {
+            setIsFrameDetected(true);
+          }
         } else {
-          console.log("Object not detected, waiting...");
+          if (isFrameDetected) {
+            setIsFrameDetected(false);
+          }
         }
       } catch (error) {
         console.error("Error processing frame:", error);
@@ -50,6 +45,25 @@ const CameraAccess = () => {
       }
     }
   };
+
+  useEffect(() => {
+    if (isFrameDetected) {
+      if (!isModelLoaded) {
+        setModelUrl("http://localhost:3001/arcam/models/final_setup1.glb");
+        setIsModelLoaded(true);
+        console.log("Object detected, loading 3D model");
+      }
+    } else {
+      if (isModelLoaded) {
+        const timeout = setTimeout(() => {
+          setModelUrl(null);
+          setIsModelLoaded(false);
+          console.log("Object not detected, unloading 3D model");
+        }, 1000); 
+        return () => clearTimeout(timeout);
+      }
+    }
+  }, [isFrameDetected, isModelLoaded]);
 
   const sendFrameToBackend = async (frameDataUrl) => {
     try {
@@ -63,16 +77,17 @@ const CameraAccess = () => {
 
       const data = await response.json();
       console.log(data);
+
       return {
-        match: response.status === 200,
+        detected:
+          data.circle_detection_valid && data.detected_objects.length > 0,
       };
     } catch (error) {
       console.error("Error sending frame to backend:", error);
-      return { match: false };
+      return { detected: false };
     }
   };
 
-  // Flip Camera Functionality
   const flipCamera = () => {
     setFacingMode((prevMode) => (prevMode === "user" ? "environment" : "user"));
   };
@@ -102,17 +117,14 @@ const CameraAccess = () => {
             )}
           </div>
 
-          {/* Camera or 3D Model */}
           <div className="p-4 sm:p-6">
             <div className="relative w-full aspect-video rounded-lg overflow-hidden">
-              {/* Webcam */}
               <Webcam
                 ref={webcamRef}
                 screenshotFormat="image/jpeg"
                 videoConstraints={videoConstraints}
                 className="w-full h-full object-cover"
               />
-              {/* 3D Model Overlay */}
               {modelUrl && (
                 <model-viewer
                   src={modelUrl}
@@ -132,7 +144,6 @@ const CameraAccess = () => {
                 ></model-viewer>
               )}
 
-              {/* Flip Camera Button */}
               <button
                 onClick={flipCamera}
                 className="absolute bottom-4 right-4 p-3 bg-white rounded-full shadow-lg hover:bg-gray-100 transition-colors duration-300"
